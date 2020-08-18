@@ -7,22 +7,25 @@ using System.Web.Http;
 
 namespace FluentValidation.WebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class UsuarioController : ApiController
-    {
-        private UsuarioService _usuarioService;
+    {       
 
-        public UsuarioController()
-        {
-            _usuarioService = new UsuarioService();
-        }
-        // GET: api/Usuario
+        public IUsuarioService _usuarioService { private get; set; }
+
+        /// <summary>
+        /// Retorna uma lista de usuarios.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         /// <summary>
-        /// 
+        /// Retorna um unico usuario.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -33,7 +36,11 @@ namespace FluentValidation.WebApi.Controllers
             return usuarioViewModel;
         }
 
-        // POST: api/Usuario
+       /// <summary>
+       /// Insere um novo registro.
+       /// </summary>
+       /// <param name="usuarioViewModel"></param>
+       /// <returns></returns>
         public UsuarioViewModel Post([FromBody]UsuarioViewModel usuarioViewModel)
         {
             var usuario = new UsuarioViewModel(new DateTime(1979, 2, 8));
@@ -41,13 +48,21 @@ namespace FluentValidation.WebApi.Controllers
             return usuarioViewModel;
         }
 
-        // PUT: api/Usuario/5
+        /// <summary>
+        /// Atualiza um registro.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="usuarioViewModel"></param>
+        /// <returns></returns>
         public UsuarioViewModel Put(int id, [FromBody]UsuarioViewModel usuarioViewModel)
         {
             return usuarioViewModel;
         }
 
-        // DELETE: api/Usuario/5
+        /// <summary>
+        /// Remove um registro.
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
 

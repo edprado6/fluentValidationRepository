@@ -1,4 +1,4 @@
-﻿using FluentValidation.Data.Repositories;
+﻿using FluentValidation.Data.IRepositories;
 using FluentValidation.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,6 +7,8 @@ namespace FluentValidation.Services
 {
     public class UsuarioService : IUsuarioService
     {
+        public IUsuarioRepository _usuarioRepository { private get; set; }
+
         public void Delete(long id)
         {
             throw new NotImplementedException();
@@ -29,8 +31,7 @@ namespace FluentValidation.Services
 
         public Usuario GetById(long id)
         {
-            var repository = new UsuarioRepository();
-            var result = repository.GetById(id);
+            var result = _usuarioRepository.GetById(id);
 
             return result;
         }

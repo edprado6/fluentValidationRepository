@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Dapper;
+﻿using Dapper;
 using FluentValidation.Data.IRepositories;
 using FluentValidation.Domain.Entities;
-using System.Data.SqlClient;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FluentValidation.Data.Repositories
 {
