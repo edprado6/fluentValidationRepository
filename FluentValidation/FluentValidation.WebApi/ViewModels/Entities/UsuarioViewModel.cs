@@ -1,7 +1,10 @@
-﻿using System;
+﻿using FluentValidation.Attributes;
+using FluentValidation.WebApi.Validators;
+using System;
 
 namespace FluentValidation.WebApi.ViewModels.Entities
 {
+    [Validator(typeof(UsuarioValidator))]
     public class UsuarioViewModel : EntidadeBase
     {
         public string Nome { get; set; }
@@ -24,12 +27,14 @@ namespace FluentValidation.WebApi.ViewModels.Entities
         /// </summary>
         public int Idade { get; set; }
 
-        public UsuarioViewModel(DateTime? nascimento)
+        public UsuarioViewModel(DateTime nascimento)
         {
             if(nascimento != null) {
 
-                Idade = (DateTime.Now.Subtract(Convert.ToDateTime(nascimento)).Days / 365);
+                Idade = (DateTime.Now.Subtract(Convert.ToDateTime(nascimento)).Days/365);
             }
+
+            Nascimento = nascimento;
         }
 
         public UsuarioViewModel()

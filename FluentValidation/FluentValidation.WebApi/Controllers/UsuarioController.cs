@@ -1,8 +1,12 @@
-﻿using FluentValidation.Domain.Entities;
+﻿using AutoMapper;
+using FluentValidation.Domain.Entities;
 using FluentValidation.Services;
+using FluentValidation.WebApi.Mappers;
 using FluentValidation.WebApi.ViewModels.Entities;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace FluentValidation.WebApi.Controllers
@@ -15,6 +19,12 @@ namespace FluentValidation.WebApi.Controllers
 
         public IUsuarioService _usuarioService { private get; set; }
 
+        public IMapper _iMapper;
+
+        public UsuarioController()
+        {
+            _iMapper = new AutoMapperConfig().IMapper();
+        }
         /// <summary>
         /// Retorna uma lista de usuarios.
         /// </summary>
@@ -29,10 +39,10 @@ namespace FluentValidation.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Usuario Get(long id)
+        public UsuarioViewModel Get(long id)
         {
-            var usuarioViewModel = _usuarioService.GetById(id);
-
+            var usuario = _usuarioService.GetById(id);
+            var usuarioViewModel = _iMapper.Map<UsuarioViewModel>(usuario);
             return usuarioViewModel;
         }
 
@@ -41,11 +51,28 @@ namespace FluentValidation.WebApi.Controllers
        /// </summary>
        /// <param name="usuarioViewModel"></param>
        /// <returns></returns>
-        public UsuarioViewModel Post([FromBody]UsuarioViewModel usuarioViewModel)
+        //public UsuarioViewModel Post([FromBody]UsuarioViewModel usuarioViewModel)
+        //{
+        //    var usuario = _iMapper.Map<Usuario>(usuarioViewModel);
+        //    usuario = _usuarioService.Insert(usuario);
+
+        //    usuarioViewModel = _iMapper.Map<UsuarioViewModel>(usuario);
+        //    return usuarioViewModel;
+        //}
+
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]UsuarioViewModel usuarioViewModel)
         {
-            var usuario = new UsuarioViewModel(new DateTime(1979, 2, 8));
-            usuario = usuarioViewModel;
-            return usuarioViewModel;
+            if (ModelState.IsValid)
+            {
+                var usuario = _iMapper.Map<Usuario>(usuarioViewModel);
+                usuario = _usuarioService.Insert(usuario);
+
+                usuarioViewModel = _iMapper.Map<UsuarioViewModel>(usuario);                
+                return Request.CreateResponse(HttpStatusCode.OK, usuarioViewModel);
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
         /// <summary>

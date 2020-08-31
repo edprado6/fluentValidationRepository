@@ -26,7 +26,9 @@ namespace FluentValidation.Services
 
         public Usuario GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            var result = _usuarioRepository.GetByEmail(email);
+
+            return result;
         }
 
         public Usuario GetById(long id)
@@ -38,7 +40,9 @@ namespace FluentValidation.Services
 
         public Usuario Insert(Usuario usuario)
         {
-            throw new NotImplementedException();
+            var result = _usuarioRepository.Insert(usuario);
+
+            return result;
         }
 
         public Usuario Update(Usuario usuario)

@@ -35,6 +35,7 @@ namespace FluentValidation.WebApi
             var container = builder.Build();
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
         }
     }
 }

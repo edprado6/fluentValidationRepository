@@ -29,7 +29,13 @@ namespace FluentValidation.Data.Repositories
 
         public Usuario Insert(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            string sql = $@"INSERT INTO Usuario (Nome,Email,CPF,Senha,Nascimento,Ativo,Excluido,Cadastro)
+                            OUTPUT INSERTED.*
+                            VALUES (@Nome, @Email, @CPF, @Senha, @Nascimento, 1, 0, GETDATE());";
+
+            var result = _conn.QuerySingle<Usuario>(sql, usuario);
+
+            return result;
         }
 
         public Usuario Update(Usuario usuario)
@@ -39,7 +45,11 @@ namespace FluentValidation.Data.Repositories
 
         public Usuario GetByEmail(string email)
         {
-            throw new System.NotImplementedException();
+            string sql = $@"SELECT * FROM Usuario WHERE Email = @email;";
+
+            var result = _conn.Query<Usuario>(sql, new { email }).FirstOrDefault();
+
+            return result;
         }
         
         public Usuario GetByCPF(string cpf)
