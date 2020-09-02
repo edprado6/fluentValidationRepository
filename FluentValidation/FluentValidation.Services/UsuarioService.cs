@@ -21,7 +21,9 @@ namespace FluentValidation.Services
 
         public Usuario GetByCPF(string cpf)
         {
-            throw new NotImplementedException();
+            var result = _usuarioRepository.GetByCPF(cpf);
+
+            return result;
         }
 
         public Usuario GetByEmail(string email)
@@ -48,6 +50,13 @@ namespace FluentValidation.Services
         public Usuario Update(Usuario usuario)
         {
             throw new NotImplementedException();
+        }
+
+        public bool CPFExistente(string cpf) {
+
+            var usuario = GetByCPF(cpf);
+
+            return (usuario == null);
         }
     }
 }

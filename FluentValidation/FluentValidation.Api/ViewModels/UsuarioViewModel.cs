@@ -9,12 +9,6 @@ namespace FluentValidation.Api.ViewModels
     {
         public long Id { get; set; }
 
-        public bool Ativo { get; set; }
-               
-        public DateTime Cadastro { get; set; }
-
-        public DateTime UltimaAtualizacao { get; set; }
-               
         public string Nome { get; set; }
 
         public string Email { get; set; }
@@ -24,6 +18,12 @@ namespace FluentValidation.Api.ViewModels
         public string Senha { get; set; }
 
         public DateTime Nascimento { get; set; }
+
+        public bool Ativo { get; set; }
+               
+        public DateTime Cadastro { get; set; }
+
+        public DateTime UltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Campo obrigatorio
