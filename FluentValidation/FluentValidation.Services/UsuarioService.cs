@@ -1,13 +1,19 @@
-﻿using FluentValidation.Data.IRepositories;
+﻿
+using FluentValidation.Data.Repositories;
 using FluentValidation.Domain.Entities;
 using System;
 using System.Collections.Generic;
 
 namespace FluentValidation.Services
 {
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService 
     {
-        public IUsuarioRepository _usuarioRepository { private get; set; }
+        public UsuarioRepository _usuarioRepository;
+
+        public UsuarioService()
+        {
+            _usuarioRepository = new UsuarioRepository();
+        }
 
         public void Delete(long id)
         {
@@ -47,9 +53,20 @@ namespace FluentValidation.Services
             return result;
         }
 
-        public Usuario Update(Usuario usuario)
+        public Usuario Update(long id, Usuario usuario)
         {
-            throw new NotImplementedException();
+            var existeUsuario = GetById(id);
+
+            if ((existeUsuario != null) && (usuario != null)) {
+
+                usuario.Id = id;
+
+                var result = _usuarioRepository.Update(usuario);
+
+                return result;
+            }
+
+            return existeUsuario;
         }
 
         public bool CPFExistente(string cpf) {

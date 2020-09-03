@@ -1,23 +1,11 @@
 ﻿using Dapper;
-using FluentValidation.Data.IRepositories;
 using FluentValidation.Domain.Entities;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FluentValidation.Data.Repositories
 {
-    public class UsuarioRepository : BaseRepository, IUsuarioRepository
-    {
-        public void Delete(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Usuario> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
-       
+    public class UsuarioRepository : BaseRepository
+    {            
         public Usuario GetById(long id)
         {
             string sql = $@"SELECT * FROM Usuario WHERE Id = @id;";
@@ -40,7 +28,20 @@ namespace FluentValidation.Data.Repositories
 
         public Usuario Update(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            string sql = $@"UPDATE Usuario 
+                                   SET Nome				 = @Nome
+                                      ,Email			 = @Email
+                                      ,CPF				 = @CPF
+                                      ,Senha			 = @Senha
+                                      ,Nascimento		 = @Nascimento
+                                      ,Ativo			 = @Ativo      
+                                      ,UltimaAtualizacao = GETDATE()
+                                OUTPUT INSERTED.*      
+                                WHERE Id = @id;";
+
+            var result = _conn.QuerySingle<Usuario>(sql, usuario );
+
+            return result;
         }
 
         public Usuario GetByEmail(string email)

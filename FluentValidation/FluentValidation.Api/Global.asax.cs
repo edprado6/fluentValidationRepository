@@ -19,24 +19,6 @@ namespace FluentValidation.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            // AutoFac
-            var builder = new ContainerBuilder();
-
-            // Register controllers
-            var controllersTypesInAssembly = typeof(WebApiApplication).Assembly.GetExportedTypes()
-                .Where(type => typeof(ApiController).IsAssignableFrom(type)).ToArray();
-            builder.RegisterTypes(controllersTypesInAssembly).PropertiesAutowired();
-
-
-            // Register services
-            builder.RegisterModule(new ServiceRegisterModule());
-
-
-            // Register autofac
-            var container = builder.Build();
-            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }
