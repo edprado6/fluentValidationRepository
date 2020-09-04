@@ -142,6 +142,15 @@ namespace FluentValidation.Infra {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O &apos;{PropertyName}&apos; não pode ser editado..
+        /// </summary>
+        public static string ForcaCampoVazio {
+            get {
+                return ResourceManager.GetString("ForcaCampoVazio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A senha deve conter entre 8 e 15 caracteres, pelo menos um número, pelo menos uma letra maiúscula e pelo menos uma letra minúscula..
         /// </summary>
         public static string SenhaValidacao {

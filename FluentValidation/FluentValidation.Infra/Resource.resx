@@ -150,4 +150,7 @@
   <data name="ValidaIdade" xml:space="preserve">
     <value>O usuário deverá ter '{PropertyName}' superior a {idadeMinimaUsuario} anos.</value>
   </data>
+  <data name="ForcaCampoVazio" xml:space="preserve">
+    <value>O '{PropertyName}' não pode ser editado.</value>
+  </data>
 </root>

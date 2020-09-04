@@ -29,9 +29,7 @@ namespace FluentValidation.Data.Repositories
         public Usuario Update(Usuario usuario)
         {
             string sql = $@"UPDATE Usuario 
-                                   SET Nome				 = @Nome
-                                      ,Email			 = @Email
-                                      ,CPF				 = @CPF
+                                   SET Nome				 = @Nome                                      
                                       ,Senha			 = @Senha
                                       ,Nascimento		 = @Nascimento
                                       ,Ativo			 = @Ativo      

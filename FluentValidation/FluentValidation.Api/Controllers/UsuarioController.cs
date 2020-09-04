@@ -29,7 +29,7 @@ namespace FluentValidation.Api.Controllers
         /// <param name="id"></param>        
         /// <returns>Retorna um registro a partir do parâmetro especificado</returns>
         /// <response code="200">A busca retornou resultado</response>
-        /// <response code="404">A busca não retornou resultados/response>
+        /// <response code="404">A busca não retornou resultados</response>
         [ResponseType(typeof(UsuarioViewModel))]
         public HttpResponseMessage Get(long id)
         {            
@@ -62,7 +62,8 @@ namespace FluentValidation.Api.Controllers
 
                 usuarioViewModel = _iMapper.Map<UsuarioViewModel>(usuario);
                 return Request.CreateResponse(HttpStatusCode.Created, usuarioViewModel);
-            }            
+            }  
+            
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
@@ -74,11 +75,12 @@ namespace FluentValidation.Api.Controllers
         /// <returns>Um registro foi atualizado</returns>
         /// <response code="204">Registro encontrado e atualizado</response>
         /// <response code="400">Um ou mais erros ocorreram</response>
-        /// <response code="404">Nenhum registro encontrado para atualização</response>
+        /// <response code="404">Nenhum registro encontrado para atualização</response>        
+        [ResponseType(typeof(UsuarioViewModel))]
         public HttpResponseMessage Put(long id, [FromBody]UsuarioViewModel usuarioViewModel)
-        {
+        {            
             if (usuarioViewModel == null) return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Nenhum dado enviado para atualização.");
-
+                      
             if (ModelState.IsValid)
             {                
                 var usuario = _iMapper.Map<Usuario>(usuarioViewModel);
