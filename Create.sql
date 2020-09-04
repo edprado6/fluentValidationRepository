@@ -1,0 +1,38 @@
+USE [dojofitcarddb]
+GO
+
+/****** Object:  Table [dbo].[Usuario]    Script Date: 04/09/2020 15:06:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Usuario](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nome] [varchar](50) NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+	[CPF] [varchar](11) NOT NULL,
+	[Senha] [varchar](20) NOT NULL,
+	[Nascimento] [date] NOT NULL,
+	[Ativo] [bit] NOT NULL,
+	[Excluido] [bit] NOT NULL,
+	[Cadastro] [datetime] NOT NULL,
+	[UltimaAtualizacao] [datetime] NULL,
+	[Exclusao] [datetime] NULL,
+ CONSTRAINT [PK_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UC_CPF] UNIQUE NONCLUSTERED 
+(
+	[CPF] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [UC_Email] UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+

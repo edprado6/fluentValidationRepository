@@ -2,6 +2,7 @@ using System.Web.Http;
 using WebActivatorEx;
 using FluentValidation.Api;
 using Swashbuckle.Application;
+using System;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -16,6 +17,7 @@ namespace FluentValidation.Api
             GlobalConfiguration.Configuration
                 .EnableSwagger(c =>
                     {
+                        
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
@@ -32,7 +34,14 @@ namespace FluentValidation.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "FluentValidation.Api");
+                        
+                        c.SingleApiVersion("v1", "FluentValidation.Api").Description("API desenvolvida para apresentação e discussão da validação de dados usando " +
+                                                                                     "FluentValidation. " +
+                                                                                     "</br></br>" + "Fitcard - " + DateTime.Now.Year.ToString())                                                                                     
+                                                                        .Contact(cc => cc
+                                                                            .Name("Emerson Dias do Prado")
+                                                                            .Email("emerson.prado@fitcard.com.br")
+                                                                            .Url("http://localhost:62932"));
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
@@ -61,7 +70,7 @@ namespace FluentValidation.Api
                         //c.BasicAuth("basic")
                         //    .Description("Basic HTTP Authentication");
                         //
-						// NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
+                        // NOTE: You must also configure 'EnableApiKeySupport' below in the SwaggerUI section
                         //c.ApiKey("apiKey")
                         //    .Description("API Key Authentication")
                         //    .Name("apiKey")
